@@ -1,0 +1,22 @@
+{
+  "name": "nora",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "node ./main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llKyo/Nora.git"
+  },
+  "author": "llKyo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/llKyo/Nora/issues"
+  },
+  "homepage": "https://github.com/llKyo/Nora#readme",
+  "dependencies": {
+    "telegraf": "^4.16.3"
+  }
+}
