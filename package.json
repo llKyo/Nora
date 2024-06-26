@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "type": "module",
   "scripts": {
-    "test": "node ./main.js"
+    "dev": "node --env-file=.env ./main.js"
   },
   "repository": {
     "type": "git",
