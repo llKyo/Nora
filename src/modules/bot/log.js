@@ -16,8 +16,9 @@ function imprimirConsulta(ctx){
     const ahora = moment().format('YYYY-MM-DD HH:mm:ss')
     const consulta = ctx.message.text
     const id_usuario = ctx.from.id
+    const first_name = ctx.from.first_name
 
-    console.log(clc.green(ahora), clc.yellow("🆔:" + id_usuario), consulta); 
+    console.log(clc.green(ahora), clc.yellow("🆔:" + id_usuario), clc.blue(first_name), consulta); 
 }
 
 export function generarLog(ctx) {
