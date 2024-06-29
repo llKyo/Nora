@@ -19,7 +19,6 @@ export class Usuario {
 
         if (!this.first_name) this.first_name = ""
         if (!this.username) this.username = ""
-        if (!this.r_usuario) this.first_name = this.id
 
         let query = `INSERT INTO USUARIO (ID, NAME, USERNAME, IS_BOT, R_USUARIO) VALUES`;
         query += `( ${this.id}`;
@@ -43,8 +42,7 @@ export class Usuario {
         return consultarDatabase(query)
     }
 
-    registrarSiExiste(){
-        
+    registrarSiNoExiste(){
         return new Promise((resolve, reject) => {
 
             this.siExiste().then((result) => {
@@ -58,7 +56,5 @@ export class Usuario {
                 reject(err)
             });
         })
-
-        
     }
 }
