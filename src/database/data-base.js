@@ -9,7 +9,7 @@ export function consultarDatabase(query) {
 
         const sqlite3 = conectarDataBase()
 
-        if (G_print_query) console.log(query)
+        if (G_print_query) console.log(`🐞 ${query}`)
 
         sqlite3.all(query, (err, data) => {
             if (err) {

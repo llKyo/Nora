@@ -3,7 +3,7 @@ import { consultarDatabase } from "../data-base.js";
 
 export class Usuario {
 
-    constructor(id, first_name = "", username = "", is_bot=-1, r_usuario) {
+    constructor(id = null, first_name = "", username = "", is_bot = null, r_usuario) {
         this.id         = id;
         this.first_name = first_name;
         this.username   = username;
@@ -12,7 +12,7 @@ export class Usuario {
     }
 
     consultar() {
-        return `SELECT ID, NAME, USUERNAME, IS_BOT, R_USUARIO FROM USUARIO WHERE ID = ${this.id}`;
+        return `SELECT ID, NAME, USUERNAME, IS_BOT, R_USUARIO FROM USUARIO WHERE ID = ${this.id};`;
     }
 
     registrar() {
@@ -38,7 +38,7 @@ export class Usuario {
 
     siExiste() {
         let query = `SELECT COUNT(1) FROM USUARIO `;
-        query += `WHERE ID = ${this.id}`;
+        query += `WHERE ID = ${this.id};`;
 
         return consultarDatabase(query)
     }
