@@ -3,12 +3,20 @@ import { iniciarComando } from "./command-manager.js";
 
 export async function iniciarBot(){
 
-    global.G_bot = new Telegraf(process.env.BOT_TOKEN)
+    const bot = new Telegraf(process.env.BOT_TOKEN)
 
-    G_bot.command("start", (ctx) => iniciarComando(ctx, "start"))
-    G_bot.command("casino", (ctx) => iniciarComando(ctx, "casino"))
+    bot.command("start", iniciarComando)
+    bot.command("casino", iniciarComando)
+    bot.command("feriados", iniciarComando)
+    bot.command("azar", iniciarComando)
+    bot.command("loto", iniciarComando)
+    bot.command("zoom", iniciarComando)
+    
+    bot.command("help", iniciarComando)
 
-    G_bot.launch()
+    global.G_bot = bot
+
+    bot.launch()
 
     console.log("DONE! 🐤\n") 
 }

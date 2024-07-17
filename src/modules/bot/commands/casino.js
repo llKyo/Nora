@@ -1,7 +1,14 @@
 import axios from "axios"
 import jsdom from "jsdom"
 import { MinutaCasino } from "../../../database/classes/MinutaCasino.js"
+import { Context } from "telegraf"
 
+/**
+ * 
+ * @param {Context} ctx 
+ * @param {boolean} esCron 
+ * @returns 
+ */
 async function obtenerMinuta(ctx, esCron) {
     return new Promise((resolve, reject) => {
         axios.get(G_minuta_url).then(res => {

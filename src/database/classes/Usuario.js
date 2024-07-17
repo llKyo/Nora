@@ -12,7 +12,9 @@ export class Usuario {
     }
 
     consultar() {
-        return `SELECT ID, NAME, USUERNAME, IS_BOT, R_USUARIO FROM USUARIO WHERE ID = ${this.id};`;
+        const query =  `SELECT ID, NAME, USUERNAME, IS_BOT, R_USUARIO FROM USUARIO WHERE ID = ${this.id};`;
+
+        return consultarDatabase(query)
     }
 
     registrar() {
