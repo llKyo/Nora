@@ -8,6 +8,7 @@ export function configurar(){
     global.G_print_query    = process.env.PRINT_QUERY === 'true'
     global.G_validar_acceso = process.env.VALIDAR_ACESO === 'true'
     global.G_genera_usuario = process.env.GENERA_USUARIO === 'true'
+    global.G_print_crons    = process.env.PRINT_CRONS === 'true'
 
     //RUTAS
     global.G_minuta_url     = "https://vrafpucv.cl/casino/#casacentral"

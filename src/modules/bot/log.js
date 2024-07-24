@@ -46,6 +46,19 @@ export function imprimirLogAcesoDenegado(ctx){
     console.log(clc.green(ahora), clc.yellow("🆔:" + id_usuario), clc.blue(first_name), consulta, '❌ Acceso Denegado'); 
 }
 
+/**
+ * 
+ * @param {Context} ctx 
+ */
+export function imprimirRespuesta(funcionCron, destinatario, nombre = "CRON"){
+    const ahora = moment().format('YYYY-MM-DD HH:mm:ss')
+    const consulta = funcionCron
+    const id_usuario = 0
+    const first_name = nombre
+
+    console.log(clc.green(ahora), clc.yellow("🆔:" + id_usuario), clc.blue(first_name), consulta, 'Envia mensaje a:', '📨:' + destinatario.ID_USUARIO); 
+}
+
 export function generarLog(ctx) {
     imprimirConsulta(ctx)
     registrarLogConsulta(ctx)

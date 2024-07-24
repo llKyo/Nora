@@ -57,6 +57,10 @@ export async function iniciarComando(ctx){
             break;
         case "zoom":
             cmd.zoom(ctx)
+            break;
+        case "remedios":
+            cmd.remedios(ctx)
+            break;
         case "help":
             cmd.help(ctx)
             break;

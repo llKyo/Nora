@@ -1,7 +1,9 @@
 import axios from "axios"
 import jsdom from "jsdom"
-import { MinutaCasino } from "../../../database/classes/MinutaCasino.js"
 import { Context } from "telegraf"
+import { MinutaCasino } from "../../../database/classes/MinutaCasino.js"
+import { obtenerDestinatariosCron } from "../cron-manager.js"
+import { imprimirRespuesta } from "../log.js"
 
 /**
  * 
@@ -68,6 +70,14 @@ export async function casino (ctx, esCron = false){
 
         const msjRespuesta = generarRespuesta(minutaCasino, esNuevo)
 
-        ctx.reply(msjRespuesta)
+        if (esNuevo) {
+            const destinatarios = await obtenerDestinatariosCron('/casino', esCron)
+
+            destinatarios.forEach(destinatario => {
+                global.G_bot.telegram.sendMessage(destinatario.ID_USUARIO, msjRespuesta)
+            });
+        } else if(!esCron) {
+            ctx.reply(msjRespuesta)
+        }
     }
 }

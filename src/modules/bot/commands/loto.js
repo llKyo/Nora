@@ -3,6 +3,8 @@ import jsdom from "jsdom"
 import moment from 'moment';
 import { Loto } from '../../../database/classes/Loto.js';
 import { Context } from 'telegraf';
+import { obtenerDestinatariosCron } from '../cron-manager.js';
+import { imprimirRespuesta } from '../log.js';
 
 async function buscarInfoLotter()
 {
@@ -28,15 +30,16 @@ async function buscarInfoLotter()
  * 
  * @param {Context} ctx 
  */
-export async function loto(ctx){
+export async function loto(ctx, esCron = false){
 
-    ctx.reply("Consultando...")
+    if(!esCron) ctx.reply("Consultando...")
 
     buscarInfoLotter()
         .then(async prize => {
             prize = prize.replace("$", "") 
 
             let mensaje = `Se encontró el siguiente monto:\n💲${prize}`
+            mensaje += `\n\n${G_LOTERIA_url}`
 
             const loto = new Loto()
             loto.fecha      = moment().format('YYYY-MM-DD')
@@ -45,9 +48,21 @@ export async function loto(ctx){
 
             loto.registrar()
 
-            await ctx.reply("💫")
-            await ctx.reply(mensaje)
+            if (!esCron) {
+                await ctx.reply("💫")
+                await ctx.reply(mensaje)        
+            } else {
+                const destinatarios = await obtenerDestinatariosCron('/loto', esCron)
+
+                destinatarios.forEach(destinatario => {
+                    global.G_bot.telegram.sendMessage(destinatario.ID_USUARIO, mensaje)
+                });
+            }
+            
         })
-        .catch(err => ctx.reply("Se produjo un error"))
+        .catch(err => {
+            if (!esCron) ctx.reply("Se produjo un error")
+            console.log(err);
+        })
 
 }
