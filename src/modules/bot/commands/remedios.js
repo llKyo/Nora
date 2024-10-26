@@ -60,7 +60,7 @@ export function remedios(ctx, esCron = false){
 
                 if (r.porcentaje_valor < 40) {
                     porcentaje_format += ' ⚠️'
-                    nivel_critico++
+                    // nivel_critico++
                 }
                 if (r.dias_faltantes <= 7 ) {
                     stock_format += ' 🔴'
@@ -70,8 +70,8 @@ export function remedios(ctx, esCron = false){
                 let mensaje = ''
                 mensaje += `💊 ${r.nombre}\n`
                 mensaje += `    > Stock Disponible: ${stock_format}\n`
-                mensaje += `    > Porcentaje: ${porcentaje_format}\n`
-                mensaje += `    > Fecha sin Stock: ${r.fechaSinStock}\n`
+                // mensaje += `    > Porcentaje: ${porcentaje_format}\n`
+                mensaje += `    > Fecha sin Stock: ${moment(r.fechaSinStock).format("dddd DD [de] MMM")}\n`
                 
                 if (!esCron) {
                     ctx.reply(mensaje)
