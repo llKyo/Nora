@@ -10,7 +10,7 @@ export function start(ctx) {
 
     const usuario = new Usuario(id, first_name, username, is_bot)
 
-    usuario.registrarSiNoExiste()
+    usuario.siExiste()
 
     ctx.reply('🖐️')
 }

@@ -14,7 +14,7 @@ function registrarLogConsulta(ctx){
     logConsulta.id_usuario  = ctx.from.id
     logConsulta.usuario     = ctx.from.username
     logConsulta.nombre      = ctx.from.first_name
-    logConsulta.r_usuario   = ctx.from.id
+    logConsulta.user_at     = ctx.from.id
 
     logConsulta.registrar()
 }
@@ -56,7 +56,9 @@ export function imprimirRespuesta(funcionCron, destinatario, nombre = "CRON"){
     const id_usuario = 0
     const first_name = nombre
 
-    console.log(clc.green(ahora), clc.yellow("🆔:" + id_usuario), clc.blue(first_name), consulta, 'Envia mensaje a:', '📨:' + destinatario.ID_USUARIO); 
+    const sDestinatario = `${destinatario.USUARIO_ID} (${destinatario.NAME})`
+
+    console.log(clc.green(ahora), clc.yellow("🆔:" + id_usuario), clc.blue(first_name), consulta, 'Envia mensaje a:', '📨:' + sDestinatario); 
 }
 
 export function generarLog(ctx) {

@@ -76,10 +76,10 @@ export function remedios(ctx, esCron = false){
                 if (!esCron) {
                     ctx.reply(mensaje)
                 } else if (nivel_critico > 0) {
-                    const destinatarios = await obtenerDestinatariosCron('/remedios', esCron)
+                    const destinatarios = await obtenerDestinatariosCron(8, esCron)
 
                     destinatarios.forEach(destinatario => {
-                        global.G_bot.telegram.sendMessage(destinatario.ID_USUARIO, mensaje)
+                        global.G_bot.telegram.sendMessage(destinatario.USUARIO_ID, mensaje)
                     });
                 }
             })

@@ -11,7 +11,7 @@ export class IpZoom {
     }
 
     consultarIpsVigentes() {
-        const query =  `SELECT ID, IP, VIGENTE, R_USUARIO FROM IP_ZOOM WHERE VIGENTE = 1`;
+        const query =  `SELECT ID, IP, ES_VIGENTE, USER_AT FROM IP_ZOOM WHERE ES_VIGENTE = 1`;
 
         return consultarDatabase(query)
     }

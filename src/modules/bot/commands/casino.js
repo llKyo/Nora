@@ -3,7 +3,6 @@ import jsdom from "jsdom"
 import { Context } from "telegraf"
 import { MinutaCasino } from "../../../database/classes/MinutaCasino.js"
 import { obtenerDestinatariosCron } from "../cron-manager.js"
-import { imprimirRespuesta } from "../log.js"
 
 /**
  * 
@@ -26,7 +25,7 @@ async function obtenerMinuta(ctx, esCron) {
 
                 minutaCasino.periodo    = divCasaCentral.window.document.querySelector(".et_pb_blurb_description").firstElementChild.innerHTML
                 minutaCasino.url        = divCasaCentral.window.document.querySelector("a").href
-                minutaCasino.r_usuario  = ctx.from.id
+                minutaCasino.user_at    = ctx.from.id
                 
                 resolve(minutaCasino)
             } else {
@@ -71,11 +70,17 @@ export async function casino (ctx, esCron = false){
         const msjRespuesta = generarRespuesta(minutaCasino, esNuevo)
 
         if (esNuevo) {
-            const destinatarios = await obtenerDestinatariosCron('/casino', esCron)
+            const destinatarios = await obtenerDestinatariosCron(3, esCron)
 
             destinatarios.forEach(destinatario => {
-                global.G_bot.telegram.sendMessage(destinatario.ID_USUARIO, msjRespuesta)
+                if (ctx.from.id != destinatario.USUARIO_ID) {
+                    global.G_bot.telegram.sendMessage(destinatario.USUARIO_ID, msjRespuesta)
+                }
             });
+            
+            if (!esCron) {
+                ctx.reply(msjRespuesta)
+            }
         } else if(!esCron) {
             ctx.reply(msjRespuesta)
         }

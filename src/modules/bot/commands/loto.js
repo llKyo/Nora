@@ -4,7 +4,6 @@ import moment from 'moment';
 import { Loto } from '../../../database/classes/Loto.js';
 import { Context } from 'telegraf';
 import { obtenerDestinatariosCron } from '../cron-manager.js';
-import { imprimirRespuesta } from '../log.js';
 
 async function buscarInfoLotter()
 {
@@ -44,7 +43,7 @@ export async function loto(ctx, esCron = false){
             const loto = new Loto()
             loto.fecha      = moment().format('YYYY-MM-DD')
             loto.monto      = prize.replace(".", "") 
-            loto.r_usuario  = ctx.chat.id 
+            loto.user_at    = ctx.chat.id 
 
             loto.registrar()
 
@@ -52,10 +51,10 @@ export async function loto(ctx, esCron = false){
                 await ctx.reply("💫")
                 await ctx.reply(mensaje)        
             } else {
-                const destinatarios = await obtenerDestinatariosCron('/loto', esCron)
+                const destinatarios = await obtenerDestinatariosCron(6, esCron)
 
                 destinatarios.forEach(destinatario => {
-                    global.G_bot.telegram.sendMessage(destinatario.ID_USUARIO, mensaje)
+                    global.G_bot.telegram.sendMessage(destinatario.USUARIO_ID, mensaje)
                 });
             }
             

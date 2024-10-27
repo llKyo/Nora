@@ -11,7 +11,7 @@ export class AgendaCron {
     }
 
     obtenerTodosLosCronVigentes() {
-        let query =  `SELECT EXPRESION_CRON, FUNCION FROM AGENDA_CRON WHERE VIGENTE = 1 `;
+        let query =  `SELECT AC.EXPRESION_CRON, C.PROMPT FROM AGENDA_CRON AC INNER JOIN COMANDO C ON C.ID = AC.COMANDO_ID WHERE AC.ES_VIGENTE = 1`;
 
         return consultarDatabase(query)
     }

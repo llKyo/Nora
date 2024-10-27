@@ -2,7 +2,6 @@ import axios from "axios";
 import { Context } from "telegraf";
 import { IpZoom } from "../../../database/classes/IpZoom.js";
 import { obtenerDestinatariosCron } from "../cron-manager.js";
-import { imprimirRespuesta } from "../log.js";
 
 function compararIps(ipZoomVigentes, ipZoomEncontradas){
 
@@ -94,10 +93,10 @@ export async function zoom(ctx, esCron = false) {
     if (!esCron) {
         ctx.reply(mensaje)
     } else {
-        const destinatarios = await obtenerDestinatariosCron('/zoom', esCron)
+        const destinatarios = await obtenerDestinatariosCron(7, esCron)
 
         destinatarios.forEach(destinatario => {
-            global.G_bot.telegram.sendMessage(destinatario.ID_USUARIO, mensaje)
+            global.G_bot.telegram.sendMessage(destinatario.USER_AT, mensaje)
         });
     }
 }

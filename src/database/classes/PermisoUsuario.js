@@ -13,10 +13,10 @@ export class PermisoUsuario {
         if (!this.id_permiso) this.id_permiso = "NULL"
         if (!this.id_usuario) this.id_usuario = "NULL"
 
-        let query = `SELECT COUNT(1) FROM PERMISO_USUARIO `
-        query += `WHERE VIGENTE = 1 `
-        query += `AND ID_USUARIO = ${this.id_usuario} `
-        query += `AND ID_PERMISO = ${this.id_permiso} `
+        let query = `SELECT COUNT(1) FROM COMANDO_USUARIO `
+        query += `WHERE ES_VIGENTE = 1 `
+        query += `AND USUARIO_ID = ${this.id_usuario} `
+        query += `AND COMANDO_ID = ${this.id_permiso} `
 
         return consultarDatabase(query)
     }

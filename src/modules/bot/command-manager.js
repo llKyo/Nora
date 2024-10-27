@@ -91,7 +91,7 @@ async function validarAcceso(ctx){
     permisoUsuario.id_usuario   = ctx.from.id
     permisoUsuario.r_usuario    = ctx.from.id
 
-    switch (permisosVigentes[0].T_ACCESO) {
+    switch (permisosVigentes[0].T_ACCESO_ID) {
         case 0:
             acceso_valido = false
             break

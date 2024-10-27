@@ -7,15 +7,17 @@ import { DestinatarioCron } from "../../database/classes/DestinatarioCron.js";
 
 function ejecutarCron(funcion){
 
+    const comando = `/${funcion}`
+
     let ctxCron = {
         chat: {id: 0},
         from: {id: 0,first_name: "CRON",username: "CRON"},
-        message: {text: funcion},
+        message: {text: comando},
     }
 
     generarLog(ctxCron)
-
-    switch (funcion) {
+    
+    switch (comando) {
         case "/casino":
             cmd.casino(ctxCron, true)
             break
@@ -26,7 +28,7 @@ function ejecutarCron(funcion){
             cmd.loto(ctxCron, true)
             break
         case "/remedios":
-            cmd.remedios(ctxCron, true)
+            // cmd.remedios(ctxCron, true)
             break
         default:
             break
@@ -36,32 +38,35 @@ function ejecutarCron(funcion){
 export async function cargarCrons(){
     const agendaCron = new AgendaCron()
 
-    const agendasCron = await agendaCron.obtenerTodosLosCronVigentes()
+    agendaCron.obtenerTodosLosCronVigentes().then(agendasCron => {
 
-    agendasCron.forEach(agendaCron => {
-        nodeCron.schedule(agendaCron.EXPRESION_CRON, () => ejecutarCron(agendaCron.FUNCION))
-    });
-
-    if (G_print_crons) {
-        if (agendasCron && agendasCron.length > 0) {
-            console.log('⏰ Crons Agendados.\n')
-            console.table(agendasCron)
-            console.log('\n')
-        } else {
-            console.log('💠 Sin Crons Agendados.\n')
+        agendasCron.forEach(agendaCron => {
+            nodeCron.schedule(agendaCron.EXPRESION_CRON, () => ejecutarCron(agendaCron.PROMPT))
+        });
+    
+        if (G_print_crons) {
+            if (agendasCron && agendasCron.length > 0) {
+                console.log('⏰ Crons Agendados.\n')
+                console.table(agendasCron)
+                console.log('\n')
+            } else {
+                console.log('💠 Sin Crons Agendados.\n')
+            }
         }
-    }
+    }).catch(err => console.error(`\n🔴  ERROR AL CARGAR CRONS`))
+
+    
 }
 
-export async function obtenerDestinatariosCron(funcionCron, esCron) {
+export async function obtenerDestinatariosCron(comando_id, esCron) {
     const destinatarioCron = new DestinatarioCron()
-    destinatarioCron.funcion_cron = funcionCron
-
+    destinatarioCron.comando_id = comando_id
+    
     const destinatarios =  await destinatarioCron.obtenerDestinatarioPorFuncionCron()
 
     const nombre = esCron ? "CRON" : "BOT"
 
-    destinatarios.forEach(destinatario => imprimirRespuesta(funcionCron, destinatario, nombre))
+    destinatarios.forEach(destinatario => imprimirRespuesta(comando_id, destinatario, nombre))
 
     return destinatarios
 }
