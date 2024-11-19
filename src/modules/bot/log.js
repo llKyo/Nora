@@ -52,7 +52,7 @@ export function imprimirLogAcesoDenegado(ctx){
  */
 export function imprimirRespuesta(funcionCron, destinatario, nombre = "CRON"){
     const ahora = moment().format('YYYY-MM-DD HH:mm:ss')
-    const consulta = funcionCron
+    const consulta = "/" + funcionCron
     const id_usuario = 0
     const first_name = nombre
 

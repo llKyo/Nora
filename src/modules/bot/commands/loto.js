@@ -8,7 +8,11 @@ import { imprimirRespuesta } from '../log.js';
 
 async function buscarInfoLotter()
 {
-    const browser = await puppeteer.launch({headless: 'new'});
+    const browser = await puppeteer.launch({ 
+        headless: true
+        // , args: ['--no-sandbox', '--disable-setuid-sandbox'] 
+        , executablePath: G_PATH_BROWSER
+    });
     const page = await browser.newPage();
 
     await page.goto(G_LOTERIA_url);

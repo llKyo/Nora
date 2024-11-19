@@ -15,6 +15,7 @@ export function configurar(){
     global.G_feriados_url   = "https://apis.digital.gob.cl/fl/feriados/"
     global.G_IP_ZOOM_url    = "https://developers.zoom.us/docs/api/rest/webhook-reference/"
     global.G_LOTERIA_url    = "https://www.polla.cl/es/"
+    global.G_PATH_BROWSER   = "/usr/bin/chromium-browser"
 
     //LOCALE
     moment.locale("es-mx")

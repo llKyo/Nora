@@ -3,16 +3,16 @@ import { consultarDatabase } from "../data-base.js";
 
 export class Usuario {
 
-    constructor(id = null, first_name = "", username = "", is_bot = null, r_usuario) {
+    constructor(id = null, first_name = "", username = "", is_bot = null, user_at) {
         this.id         = id;
         this.first_name = first_name;
         this.username   = username;
         this.is_bot     = is_bot;
-        this.r_usuario  = r_usuario ? r_usuario : id;
+        this.user_at  = user_at ? user_at : id;
     }
 
     consultar() {
-        const query =  `SELECT ID, NAME, USUERNAME, IS_BOT, R_USUARIO FROM USUARIO WHERE ID = ${this.id};`;
+        const query =  `SELECT ID, NAME, USUERNAME, IS_BOT, USER_AT FROM USUARIO WHERE ID = ${this.id};`;
 
         return consultarDatabase(query)
     }
@@ -22,12 +22,12 @@ export class Usuario {
         if (!this.first_name) this.first_name = ""
         if (!this.username) this.username = ""
 
-        let query = `INSERT INTO USUARIO (ID, NAME, USERNAME, IS_BOT, R_USUARIO) VALUES`;
+        let query = `INSERT INTO USUARIO (ID, NAME, USERNAME, IS_BOT, USER_AT) VALUES`;
         query += `( ${this.id}`;
         query += `,'${this.first_name}'`;
         query += `,'${this.username}'`;
-        query += `,'${this.is_bot ? 1 : 0}'`;
-        query += `,'${this.r_usuario}'`;
+        query += `,${this.is_bot ? 1 : 0}`;
+        query += `,'${this.user_at}'`;
         query += `);`;
 
         return consultarDatabase(query)

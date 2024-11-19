@@ -61,6 +61,12 @@ export async function iniciarComando(ctx){
         case "remedios":
             cmd.remedios(ctx)
             break;
+        case "ip":
+            cmd.ip(ctx)
+            break;
+        case "timesheet":
+            cmd.timesheet(ctx)
+            break;
         case "help":
             cmd.help(ctx)
             break;

@@ -61,7 +61,7 @@ export async function obtenerDestinatariosCron(funcionCron, esCron) {
 
     const nombre = esCron ? "CRON" : "BOT"
 
-    destinatarios.forEach(destinatario => imprimirRespuesta(funcionCron, destinatario, nombre))
+    destinatarios.forEach(destinatario => imprimirRespuesta(destinatario.PROMPT, destinatario, nombre))
 
     return destinatarios
 }

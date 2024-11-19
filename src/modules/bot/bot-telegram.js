@@ -13,6 +13,8 @@ export async function iniciarBot(){
     bot.command("loto", iniciarComando)
     bot.command("zoom", iniciarComando)
     bot.command("remedios", iniciarComando)
+    bot.command("ip", iniciarComando)
+    bot.command("timesheet", iniciarComando)
     
     bot.command("help", iniciarComando)
 

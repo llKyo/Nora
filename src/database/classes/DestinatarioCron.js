@@ -13,8 +13,12 @@ export class DestinatarioCron {
     obtenerDestinatarioPorFuncionCron() {
         if (!this.funcion_cron) this.funcion_cron = 'NULL'
 
-        let query = `SELECT ID_USUARIO FROM DESTINATARIO_CRON WHERE VIGENTE = 1 `;
-        query += ` AND FUNCION_CRON = '${this.funcion_cron}'`;
+        let query = `SELECT DC.USUARIO_ID, U.NAME, DC.COMANDO_ID, C.PROMPT `
+        query += `FROM DESTINATARIO_CRON DC `
+        query += `INNER JOIN USUARIO U ON U.ID = DC.USUARIO_ID `
+        query += `INNER JOIN COMANDO C ON C.ID = DC.COMANDO_ID `
+        query += ` AND DC.COMANDO_ID = ${this.comando_id}`;
+        query += ` AND DC.ES_VIGENTE = 1`;
 
         return consultarDatabase(query)
     }
