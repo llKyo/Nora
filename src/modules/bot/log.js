@@ -14,7 +14,7 @@ function registrarLogConsulta(ctx){
     logConsulta.id_usuario  = ctx.from.id
     logConsulta.usuario     = ctx.from.username
     logConsulta.nombre      = ctx.from.first_name
-    logConsulta.r_usuario   = ctx.from.id
+    logConsulta.user_at   = ctx.from.id
 
     logConsulta.registrar()
 }

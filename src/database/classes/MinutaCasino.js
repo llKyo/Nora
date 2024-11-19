@@ -1,20 +1,20 @@
 import { consultarDatabase } from "../data-base.js"
 
 export class MinutaCasino {
-    constructor(id, periodo = "", url = "", r_usuario) {
-        this.id = id
-        this.periodo = periodo
-        this.url = url
-        this.r_usuario = r_usuario ? r_usuario : id
+    constructor(id, periodo = "", url = "", user_at) {
+        this.id         = id
+        this.periodo    = periodo
+        this.url        = url
+        this.user_at    = user_at ? user_at : id
     }
 
     consultar() {}
 
     registrar() {
-        let query = `INSERT INTO MINUTA_CASINO ( PERIODO, URL, R_USUARIO) VALUES`
+        let query = `INSERT INTO MINUTA_CASINO ( PERIODO, URL, USER_AT) VALUES`
         query += `('${this.periodo}'`
         query += `,'${this.url}'`
-        query += `,'${this.r_usuario ? this.r_usuario : this.id}'`
+        query += `,'${this.user_at ? this.user_at : this.id}'`
         query += `);`
 
         return consultarDatabase(query)

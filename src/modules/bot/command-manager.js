@@ -95,7 +95,7 @@ async function validarAcceso(ctx){
     const permisoUsuario = new PermisoUsuario()
     permisoUsuario.id_permiso   = permisosVigentes[0].ID
     permisoUsuario.id_usuario   = ctx.from.id
-    permisoUsuario.r_usuario    = ctx.from.id
+    permisoUsuario.user_at    = ctx.from.id
 
     switch (permisosVigentes[0].T_ACCESO) {
         case 0:

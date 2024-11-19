@@ -2,12 +2,12 @@ import { consultarDatabase } from "../data-base.js";
 
 export class DestinatarioCron {
 
-    constructor(id, id_usuario = null, funcion_cron = null, vigente = null, r_usuario = null) {
+    constructor(id, id_usuario = null, funcion_cron = null, vigente = null, user_at = null) {
         this.id             = id;
         this.id_usuario     = id_usuario;
         this.funcion_cron   = funcion_cron;
         this.vigente        = vigente;
-        this.r_usuario      = r_usuario;
+        this.user_at        = user_at;
     }
 
     obtenerDestinatarioPorFuncionCron() {

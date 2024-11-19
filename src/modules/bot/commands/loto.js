@@ -48,7 +48,7 @@ export async function loto(ctx, esCron = false){
             const loto = new Loto()
             loto.fecha      = moment().format('YYYY-MM-DD')
             loto.monto      = prize.replace(".", "") 
-            loto.r_usuario  = ctx.chat.id 
+            loto.user_at  = ctx.chat.id 
 
             loto.registrar()
 

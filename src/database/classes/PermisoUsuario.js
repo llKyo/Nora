@@ -1,11 +1,11 @@
 import { consultarDatabase } from "../data-base.js"
 
 export class PermisoUsuario {
-    constructor(id, id_permiso = null, id_usuario = null, vigente = null, r_usuario) {
+    constructor(id, id_permiso = null, id_usuario = null, vigente = null, user_at) {
         this.id_permiso = id_permiso
         this.id_usuario = id_usuario
         this.vigente    = vigente
-        this.r_usuario  = r_usuario ? r_usuario : id
+        this.user_at    = user_at ? user_at : id
     }
 
     consultarPermisoPorUsuario() {

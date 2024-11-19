@@ -26,7 +26,7 @@ async function obtenerMinuta(ctx, esCron) {
 
                 minutaCasino.periodo    = divCasaCentral.window.document.querySelector(".et_pb_blurb_description").firstElementChild.innerHTML
                 minutaCasino.url        = divCasaCentral.window.document.querySelector("a").href
-                minutaCasino.r_usuario  = ctx.from.id
+                minutaCasino.user_at  = ctx.from.id
                 
                 resolve(minutaCasino)
             } else {

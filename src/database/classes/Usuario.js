@@ -8,7 +8,7 @@ export class Usuario {
         this.first_name = first_name;
         this.username   = username;
         this.is_bot     = is_bot;
-        this.user_at  = user_at ? user_at : id;
+        this.user_at    = user_at ? user_at : id;
     }
 
     consultar() {
