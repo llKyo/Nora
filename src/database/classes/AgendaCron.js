@@ -13,7 +13,7 @@ export class AgendaCron {
     obtenerTodosLosCronVigentes() {
         let query =  `SELECT EXPRESION_CRON, PROMPT FROM AGENDA_CRON AC `
         query += `INNER JOIN COMANDO C `
-        query += `ON C.ID = AC.ID `
+        query += `ON C.ID = AC.COMANDO_ID `
         query += `WHERE AC.ES_VIGENTE = 1 `;
         query += `AND C.ES_VIGENTE = 1 `;
 

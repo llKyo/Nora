@@ -56,7 +56,11 @@ export function imprimirRespuesta(funcionCron, destinatario, nombre = "CRON"){
     const id_usuario = 0
     const first_name = nombre
 
-    console.log(clc.green(ahora), clc.yellow("🆔:" + id_usuario), clc.blue(first_name), consulta, 'Envia mensaje a:', '📨:' + destinatario.ID_USUARIO); 
+    console.log(
+        clc.green(ahora), clc.yellow("🆔:" + id_usuario), 
+        clc.blue(first_name), consulta, 
+        'Envia mensaje a:', `📨:${destinatario.USUARIO_ID} (${destinatario.NAME})`
+    ); 
 }
 
 export function generarLog(ctx) {

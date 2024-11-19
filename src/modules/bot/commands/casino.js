@@ -71,7 +71,7 @@ export async function casino (ctx, esCron = false){
         const msjRespuesta = generarRespuesta(minutaCasino, esNuevo)
 
         if (esNuevo) {
-            const destinatarios = await obtenerDestinatariosCron('/casino', esCron)
+            const destinatarios = await obtenerDestinatariosCron(3, esCron)
 
             destinatarios.forEach(destinatario => {
                 global.G_bot.telegram.sendMessage(destinatario.ID_USUARIO, msjRespuesta)

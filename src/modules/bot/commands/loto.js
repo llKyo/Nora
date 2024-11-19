@@ -56,7 +56,7 @@ export async function loto(ctx, esCron = false){
                 await ctx.reply("💫")
                 await ctx.reply(mensaje)        
             } else {
-                const destinatarios = await obtenerDestinatariosCron('/loto', esCron)
+                const destinatarios = await obtenerDestinatariosCron(6, esCron)
 
                 destinatarios.forEach(destinatario => {
                     global.G_bot.telegram.sendMessage(destinatario.ID_USUARIO, mensaje)

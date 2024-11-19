@@ -94,7 +94,7 @@ export async function zoom(ctx, esCron = false) {
     if (!esCron) {
         ctx.reply(mensaje)
     } else {
-        const destinatarios = await obtenerDestinatariosCron('/zoom', esCron)
+        const destinatarios = await obtenerDestinatariosCron(7, esCron)
 
         destinatarios.forEach(destinatario => {
             global.G_bot.telegram.sendMessage(destinatario.USUARIO_ID, mensaje)

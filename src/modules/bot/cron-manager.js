@@ -16,16 +16,16 @@ function ejecutarCron(funcion){
     generarLog(ctxCron)
 
     switch (funcion) {
-        case "/casino":
+        case "casino":
             cmd.casino(ctxCron, true)
             break
-        case "/zoom":
+        case "zoom":
             cmd.zoom(ctxCron, true)
             break
-        case "/loto":
+        case "loto":
             cmd.loto(ctxCron, true)
             break
-        case "/remedios":
+        case "remedios":
             cmd.remedios(ctxCron, true)
             break
         default:
@@ -39,7 +39,7 @@ export async function cargarCrons(){
     const agendasCron = await agendaCron.obtenerTodosLosCronVigentes()
 
     agendasCron.forEach(agendaCron => {
-        nodeCron.schedule(agendaCron.EXPRESION_CRON, () => ejecutarCron(agendaCron.FUNCION))
+        nodeCron.schedule(agendaCron.EXPRESION_CRON, () => ejecutarCron(agendaCron.PROMPT))
     });
 
     if (G_print_crons) {
@@ -53,10 +53,10 @@ export async function cargarCrons(){
     }
 }
 
-export async function obtenerDestinatariosCron(funcionCron, esCron) {
+export async function obtenerDestinatariosCron(comando_id, esCron) {
     const destinatarioCron = new DestinatarioCron()
-    destinatarioCron.funcion_cron = funcionCron
-
+    destinatarioCron.comando_id = comando_id
+    
     const destinatarios =  await destinatarioCron.obtenerDestinatarioPorFuncionCron()
 
     const nombre = esCron ? "CRON" : "BOT"
