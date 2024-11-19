@@ -1,4 +1,3 @@
-import { min } from "moment"
 import { consultarDatabase } from "../data-base.js"
 
 export class Permiso {
@@ -10,7 +9,7 @@ export class Permiso {
     }
 
     consultarPermisosVigentesPorComando() {
-        let query = `SELECT ID, T_ACCESO FROM PERMISO `
+        let query = `SELECT ID, T_ACCESO FROM COMANDO_USUARIO `
         query += `WHERE VIGENTE = 1 `
         query += `AND COMANDO = '${this.comando}'`
 

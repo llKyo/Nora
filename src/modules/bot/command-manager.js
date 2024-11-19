@@ -3,8 +3,9 @@ import * as cmd from "./commands/index.js"
 
 import { generarLog, imprimirLogAcesoDenegado } from "./log.js"
 import { Permiso } from "../../database/classes/Permiso.js";
-import { PermisoUsuario } from "../../database/classes/PermisoUsuario.js";
+import { ComandoUsuario } from "../../database/classes/ComandoUsuario.js";
 import { Usuario } from "../../database/classes/Usuario.js";
+import { Comando } from "./commands/comando.js";
 
 /**
  * 
@@ -85,19 +86,19 @@ async function validarAcceso(ctx){
 
     let acceso_valido = false
 
-    const permiso = new Permiso()
-    permiso.comando = ctx.command.replace("'", "")
+    const comando = new Comando()
+    comando.prompt = ctx.command.replace("'", "")    
 
-    const permisosVigentes = await permiso.consultarPermisosVigentesPorComando()
+    const comandoVigente = await comando.consultarTipoAccesoVigentesPorComando()
 
-    if (!permisosVigentes[0]) return false
+    if (!comandoVigente[0]) return false
 
-    const permisoUsuario = new PermisoUsuario()
-    permisoUsuario.id_permiso   = permisosVigentes[0].ID
-    permisoUsuario.id_usuario   = ctx.from.id
-    permisoUsuario.user_at    = ctx.from.id
+    const comandoUsuario = new ComandoUsuario()
+    comandoUsuario.comando_id   = comandoVigente[0].ID
+    comandoUsuario.usuario_id   = ctx.from.id
+    comandoUsuario.user_at      = ctx.from.id
 
-    switch (permisosVigentes[0].T_ACCESO) {
+    switch (comandoVigente[0].T_ACCESO_ID) {
         case 0:
             acceso_valido = false
             break
@@ -105,9 +106,9 @@ async function validarAcceso(ctx){
             acceso_valido = true
             break
         case 2:
-            const permisoUsuarioVigente = await permisoUsuario.consultarPermisoPorUsuario()
+            const comandoUsuarioVigente = await comandoUsuario.consultarPermisoPorUsuario()
 
-            if (permisoUsuarioVigente[0] && permisoUsuarioVigente[0]["COUNT(1)"] > 0) {
+            if (comandoUsuarioVigente[0] && comandoUsuarioVigente[0]["COUNT(1)"] > 0) {
                 acceso_valido = true
             } else { 
                 acceso_valido = false
