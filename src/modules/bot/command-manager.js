@@ -2,7 +2,6 @@ import { Context } from "telegraf";
 import * as cmd from "./commands/index.js"
 
 import { generarLog, imprimirLogAcesoDenegado } from "./log.js"
-import { Permiso } from "../../database/classes/Permiso.js";
 import { ComandoUsuario } from "../../database/classes/ComandoUsuario.js";
 import { Usuario } from "../../database/classes/Usuario.js";
 import { Comando } from "./commands/comando.js";
@@ -67,6 +66,9 @@ export async function iniciarComando(ctx){
             break;
         case "timesheet":
             cmd.timesheet(ctx)
+            break;
+        case "test":
+            cmd.test(ctx)
             break;
         case "help":
             cmd.help(ctx)

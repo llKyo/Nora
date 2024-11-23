@@ -16,6 +16,8 @@ export async function iniciarBot(){
     bot.command("ip", iniciarComando)
     bot.command("timesheet", iniciarComando)
     
+    bot.command("test", iniciarComando)
+    
     bot.command("help", iniciarComando)
 
     global.G_bot = bot

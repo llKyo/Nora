@@ -31,13 +31,15 @@ export class ConsumoMedicamento {
 
     actualizarSincronizacion(){
 
-        if (!this.consumido || !this.respaldo || !this.user_at || !this.consumido) return false
+        console.log(isNaN(this.consumido) || isNaN(this.respaldo) || isNaN(this.id));
+        
+        if (isNaN(this.consumido) || isNaN(this.respaldo) || isNaN(this.id)) return false
 
         let query = `UPDATE CONSUMO_MEDICAMENTO `
         query += `SET CONSUMIDO=${this.consumido} `
         query += `, RESPALDO=${this.respaldo} `
         query += `, SINCRONIZADO=1 `
-        query += `, USER_AT=${this.user_at} `
+        query += `, USER_AT='${this.user_at}' `
         query += `WHERE ID=${this.id}; `
 
         return consultarDatabase(query)

@@ -11,7 +11,7 @@ async function buscarInfoLotter()
     const browser = await puppeteer.launch({ 
         headless: true
         // , args: ['--no-sandbox', '--disable-setuid-sandbox'] 
-        , executablePath: G_PATH_BROWSER
+        , executablePath: process.env.PATH_BROWSER
     });
     const page = await browser.newPage();
 

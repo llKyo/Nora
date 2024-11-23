@@ -5,11 +5,11 @@ import { generarLog, imprimirRespuesta } from "./log.js";
 import { DestinatarioCron } from "../../database/classes/DestinatarioCron.js";
 
 
-function ejecutarCron(funcion){
+export function ejecutarCron(funcion){
 
     let ctxCron = {
-        chat: {id: 0},
-        from: {id: 0,first_name: "CRON",username: "CRON"},
+        chat: {id: -1},
+        from: {id: -1,first_name: "CRON",username: "CRON"},
         message: {text: funcion},
     }
 
@@ -27,6 +27,9 @@ function ejecutarCron(funcion){
             break
         case "remedios":
             cmd.remedios(ctxCron, true)
+            break
+        case "timesheet":
+            cmd.timesheet(ctxCron, true)
             break
         default:
             break

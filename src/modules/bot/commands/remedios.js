@@ -21,9 +21,9 @@ async function sincronizarMedicamentos(consumo_medicamento_id, medicamento_id, s
         consumoMedicamento.consumido    = dosis_diaria
         consumoMedicamento.respaldo     = stock
         consumoMedicamento.user_at      = user_at
-        
+
         const act_sincro = await consumoMedicamento.actualizarSincronizacion()
-        
+
         if (act_sincro && act_sincro.affectedRows > 0) {
 
             if (dosis_diaria && dosis_diaria > 0 ) {

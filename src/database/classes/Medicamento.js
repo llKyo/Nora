@@ -22,7 +22,7 @@ export class Medicamento {
 
     actualizarStock(){
 
-        if (!this.id || !this.stock) return false
+        if (!this.id || isNaN(this.stock)) return false
 
         let query = `UPDATE MEDICAMENTO `
         query += `SET STOCK=${this.stock} `
