@@ -73,6 +73,9 @@ export async function iniciarComando(ctx){
         case "mpa":
             cmd.mpa(ctx)
             break;
+        case "dns":
+            cmd.dns(ctx)
+            break
         case "help":
             cmd.help(ctx)
             break;

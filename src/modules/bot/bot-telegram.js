@@ -17,6 +17,7 @@ export async function iniciarBot(){
     bot.command("ip", iniciarComando)
     bot.command("timesheet", iniciarComando)
     bot.command("mpa", iniciarComando)
+    bot.command("dns", iniciarComando)
     
     bot.command("test", iniciarComando)
     
