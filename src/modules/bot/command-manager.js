@@ -70,6 +70,9 @@ export async function iniciarComando(ctx){
         case "test":
             cmd.test(ctx)
             break;
+        case "mpa":
+            cmd.mpa(ctx)
+            break;
         case "help":
             cmd.help(ctx)
             break;

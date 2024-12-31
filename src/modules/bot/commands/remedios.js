@@ -78,7 +78,7 @@ function notificarResumen(ahora, ctx, esCron){
 
             if (advetencia)  m.NOMBRE += ' 🔴'
 
-            let fecha_sin_stock = ahora.add(m.STOCK, 'days')
+            let fecha_sin_stock = ahora.clone().add(m.STOCK, 'days')
     
             let mensaje = ''
 

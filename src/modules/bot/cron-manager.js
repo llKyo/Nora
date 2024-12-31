@@ -4,6 +4,7 @@ import { AgendaCron } from "../../database/classes/AgendaCron.js"
 import { generarLog, imprimirRespuesta } from "./log.js";
 import { DestinatarioCron } from "../../database/classes/DestinatarioCron.js";
 
+// https://cronexpressiontogo.com/every-minute
 
 export function ejecutarCron(funcion){
 
@@ -30,6 +31,9 @@ export function ejecutarCron(funcion){
             break
         case "timesheet":
             cmd.timesheet(ctxCron, true)
+            break
+        case "mpa":
+            cmd.mpa(ctxCron, true)
             break
         default:
             break

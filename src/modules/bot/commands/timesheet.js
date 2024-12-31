@@ -32,6 +32,8 @@ async function obtenerHorasSemanalesTimeSheet() {
         return element.textContent; // Obtiene el texto del elemento
     });
 
+    await browser.close();
+
     return horasSemanalesTotales
 }
 
@@ -71,8 +73,10 @@ export async function timesheet(ctx, esCron = false) {
 
             } else {
                 mensaje += `Tiempo Ingresado en el Time💩 no pudo ser formateado\n\n`
-                mensaje += `Tiempo encontrado: ${tiempoTotalSemanal}`
+                mensaje += `Tiempo encontrado: ${tiempoTotalSemanal}\n`
             }
+
+            mensaje += `\n🌐👉 ${ process.env.PATH_TIMESHEET }`
 
             if (!esCron) {
                 await ctx.reply('⌛')
