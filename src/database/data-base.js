@@ -1,14 +1,29 @@
 import mysql from "mysql2"
 
-function conectarDataBase() {
+function conectarDataBase(conexion) {
         
-    const connection = mysql.createConnection({
-        host: process.env.DB_HOST, 
-        user: process.env.DB_USER,
-        // port: process.env.DB_PORT,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME 
-    });
+    let connection = null
+
+    switch (conexion) {
+        case 1:
+            connection = mysql.createConnection({
+                host: process.env.DB_HOST, 
+                user: process.env.DB_USER,
+                // port: process.env.DB_PORT,
+                password: process.env.DB_PASSWORD,
+                database: process.env.DB_NAME 
+            });
+            break;
+        case 2:
+            connection = mysql.createConnection({
+                host: process.env.DB2_HOST, 
+                user: process.env.DB2_USER,
+                // port: process.env.DB_PORT,
+                password: process.env.DB2_PASSWORD,
+                database: process.env.DB2_NAME 
+            });
+            break;
+    }
 
     connection.connect((err) => {
         if (err) console.error();
@@ -17,12 +32,12 @@ function conectarDataBase() {
     return connection;
 }
     
-export function consultarDatabase(query) {
+export function consultarDatabase(query, conexion = 1) {
     return new Promise((resolve, reject) => {
 
         if (G_print_query) console.log(`🐞 ${query}`)
         
-            const connection = conectarDataBase()
+            const connection = conectarDataBase(conexion)
             
             connection.query(query, async (error, resp) => {
                 if (error) {

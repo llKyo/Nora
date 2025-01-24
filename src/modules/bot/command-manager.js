@@ -39,48 +39,10 @@ export async function iniciarComando(ctx){
         return
     }
 
-    switch (ctx.command) {
-        case "start":
-            cmd.start(ctx)
-            break;
-        case "casino":
-            cmd.casino(ctx)
-            break;
-        case "feriados":
-            cmd.feriados(ctx)
-            break;
-        case "azar":
-            cmd.azar(ctx, help)
-            break;
-        case "loto":
-            cmd.loto(ctx)
-            break;
-        case "zoom":
-            cmd.zoom(ctx)
-            break;
-        case "remedios":
-            cmd.remedios(ctx)
-            break;
-        case "ip":
-            cmd.ip(ctx)
-            break;
-        case "timesheet":
-            cmd.timesheet(ctx)
-            break;
-        case "test":
-            cmd.test(ctx)
-            break;
-        case "mpa":
-            cmd.mpa(ctx)
-            break;
-        case "dns":
-            cmd.dns(ctx)
-            break
-        case "help":
-            cmd.help(ctx)
-            break;
-        default:
-            break;
+    if (typeof cmd[ctx.command] === "function") {
+        cmd[ctx.command](ctx, help)
+    } else {
+        ctx.reply('❓')
     }
 }
 
