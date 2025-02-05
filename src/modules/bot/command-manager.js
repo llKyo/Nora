@@ -34,7 +34,8 @@ export async function iniciarComando(ctx){
     const acceso_valido = await validarAcceso(ctx)
 
     if (!acceso_valido) {
-        ctx.reply('❌')
+        await ctx.reply('❌') 
+        await ctx.reply('Acceso Denegado.')
         imprimirLogAcesoDenegado(ctx)
         return
     }

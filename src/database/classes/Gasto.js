@@ -37,4 +37,19 @@ export class Gasto {
     
         return consultarDatabase(query,2)
     }
+
+    actualizarOInsertarGastoCorriente() {
+
+        if (!this.monto || !this.t_categoria || isNaN(this.monto) || isNaN(this.t_categoria)) {
+            return new Promise((resolve, reject) => reject(`BUABUA`))
+        }
+
+        let query = `UPDATE GASTO `
+        query += `SET MONTO = IFNULL(MONTO + ${this.monto}, ${this.monto}) `
+        query += `WHERE T_CATEGORIA = ${this.t_categoria} `
+        query += `AND FECHA = DATE(NOW()) `
+
+        return consultarDatabase(query,2)
+        
+    }
 }

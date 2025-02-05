@@ -56,7 +56,7 @@ const cargaGastosScene = new Scenes.WizardScene('cargaGastosScene',
             return; 
         }
 
-        ctx.session.categoria = categoria - 1;
+        ctx.session.categoria = categoria;
         ctx.session.id_categoria = aCategoriasGastos[categoria - 1].TIPO;
         ctx.session.categoria_desc = aCategoriasGastos[categoria - 1].DESCRIPCION;
 

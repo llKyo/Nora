@@ -3,14 +3,14 @@ import { iniciarComando } from "./command-manager.js";
 import { cargarCrons } from "./cron-manager.js";
 import cargaGastosScene from "./scenes/carga-gastos.scene.js";
 import testScene from "./scenes/test.scene.js";
-import cargaGastoTransporte from "./scenes/c-gasto-transporte.scene.js";
-import { tranporte } from "./commands/transporte.js";
+import cargaGastoCorriente from "./scenes/carga-g-corriente.scene.js";
+import { corriente } from "./commands/corriente.js";
 
 export async function iniciarBot(){
 
     const bot = new Telegraf(process.env.BOT_TOKEN)
 
-    const stage = new Scenes.Stage([cargaGastosScene, testScene, cargaGastoTransporte]);
+    const stage = new Scenes.Stage([cargaGastosScene, testScene, cargaGastoCorriente]);
 
     bot.use(session()); // Activar soporte de sesión
     bot.use(stage.middleware()); // Activar soporte de escenas
@@ -26,22 +26,15 @@ export async function iniciarBot(){
     bot.command("timesheet", iniciarComando)
     bot.command("mpa", iniciarComando)
     bot.command("dns", iniciarComando)
-    
-    // bot.command("test", iniciarComando)
-
     bot.command("gastos", iniciarComando)
+    bot.command("corriente", iniciarComando)
     
     bot.command("help", iniciarComando)
 
-    bot.command("transporte", ctx => {
-        tranporte(ctx)
-
+    // bot.command("test", ctx => {
+    //     corriente(ctx)
         
-        
-    })
-
-
-
+    // })
 
 
     global.G_bot = bot
