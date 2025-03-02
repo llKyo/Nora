@@ -19,6 +19,9 @@ export class DestinatarioCron {
         query += ` AND DC.ES_VIGENTE = 1`;
         query += ` WHERE C.ID = ${this.comando_id} `;
 
+        console.log(query);
+        
+
         return consultarDatabase(query)
     }
 }

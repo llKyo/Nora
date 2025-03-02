@@ -35,6 +35,9 @@ export function ejecutarCron(funcion){
         case "mpa":
             cmd.mpa(ctxCron, true)
             break
+        case "hoy":
+            cmd.hoy(ctxCron, true)
+            break
         default:
             break
     }

@@ -1,10 +1,9 @@
-import { Markup, Scenes, session, Telegraf } from "telegraf";
+import { Scenes, session, Telegraf } from "telegraf";
 import { iniciarComando } from "./command-manager.js";
 import { cargarCrons } from "./cron-manager.js";
 import cargaGastosScene from "./scenes/carga-gastos.scene.js";
 import testScene from "./scenes/test.scene.js";
 import cargaGastoCorriente from "./scenes/carga-g-corriente.scene.js";
-import { corriente } from "./commands/corriente.js";
 
 export async function iniciarBot(){
 
@@ -28,14 +27,13 @@ export async function iniciarBot(){
     bot.command("dns", iniciarComando)
     bot.command("gastos", iniciarComando)
     bot.command("corriente", iniciarComando)
+    bot.command("hoy", iniciarComando)
     
     bot.command("help", iniciarComando)
 
-    // bot.command("test", ctx => {
-    //     corriente(ctx)
-        
-    // })
-
+    bot.command("test", ctx => {
+       
+    })
 
     global.G_bot = bot
 
