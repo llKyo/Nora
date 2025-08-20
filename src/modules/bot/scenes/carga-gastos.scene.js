@@ -144,9 +144,9 @@ const cargaGastosScene = new Scenes.WizardScene('cargaGastosScene',
     async (ctx) => {
         const letra_adeudado = ctx.message.text.trim();
 
-        if (letra_adeudado.length != 1) {
-            await ctx.reply('❌ Opción no válida. Debe ingresar 1 caracter.')
-            await ctx.reply('👉 Ingrese una letra para el adeudado:');
+        if (letra_adeudado.length > 2) {
+            await ctx.reply('❌ Opción no válida. Debe ingresar 1 o 2 caracter.')
+            await ctx.reply('👉 Ingrese una o dos letras para el adeudado:');
 
             
             return

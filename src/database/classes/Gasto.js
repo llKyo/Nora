@@ -52,4 +52,11 @@ export class Gasto {
         return consultarDatabase(query,2)
         
     }
+
+    consultarResumenMensual() {
+        let query = `SELECT * FROM VW_RESUMEN_MENSUAL`
+
+        return consultarDatabase(query,2)
+
+    }
 }

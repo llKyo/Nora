@@ -35,7 +35,7 @@ function conectarDataBase(conexion) {
 export function consultarDatabase(query, conexion = 1) {
     return new Promise((resolve, reject) => {
 
-        if (G_print_query) console.log(`🐞 ${query}`)
+        if (global.G_print_query) console.log(`🐞 ${query}`)
         
             const connection = conectarDataBase(conexion)
             

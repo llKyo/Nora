@@ -1,18 +1,31 @@
 import { Scenes } from 'telegraf';
 import { cargarGastoTransporteDB } from '../commands/corriente.js';
+import { GastoCorriente } from '../../../database/classes/GastoCorriente.js';
 
-const aGastoTransComunes = [
-    {ID:1,DESCRIPCION:"Colectivo",MONTO:900},
-    {ID:2,DESCRIPCION:"Micro_Local",MONTO:400},
-    {ID:3,DESCRIPCION:"Micro_Normal",MONTO:470},
-    {ID:4,DESCRIPCION:"Micro_Directo",MONTO:560},
-    {ID:5,DESCRIPCION:"Otros",MONTO:0},
-]
+let aGastoTransComunes = []
+let aGastoComComunes = []
 
-const aGastoComComunes = [
-    {ID:1,DESCRIPCION:"Pancito",MONTO:1190},
-    {ID:2,DESCRIPCION:"Otros",MONTO:0},
-]
+async function cargarGastoComun(t_categoria_gasto){
+    const gastoCorriente = new GastoCorriente()
+    gastoCorriente.t_categoria_gasto = t_categoria_gasto
+
+    let gastos = await gastoCorriente.consultarVigentePorTipo()
+
+    gastos = gastos.map(g => ({
+        ...g,
+        DESCRIPCION: g.DESCRIPCION.replace(/ /g, '_')
+    }));
+
+    gastos.push({
+        ID:0,
+        DESCRIPCION:"Otros",
+        T_CATEGORIA_GASTO:t_categoria_gasto,
+        ORDEN:0,
+        MONTO:0
+    })
+
+    return gastos
+}
 
 
 const aCategorias = [
@@ -24,8 +37,19 @@ let slcCategorias = ''
 let mensajeMontoConfirm = ''
 let slcTCategoria = ''
 
+function obtenerOpcion(ctx){
+    let opcion = ctx.message.text.trim().match(/\/(\d+)_/)
+    
+    opcion = opcion ? opcion[1] : ctx.message.text.trim()
+
+    return opcion
+}
+
 const cargaGastoCorriente = new Scenes.WizardScene('cargaGastoCorriente',
-    (ctx) => {
+    async (ctx) => {
+
+        aGastoComComunes = await cargarGastoComun(2)
+        aGastoTransComunes = await cargarGastoComun(10)
 
         ctx.session.categoria = null
         ctx.session.tipo_gasto = null
@@ -47,16 +71,20 @@ const cargaGastoCorriente = new Scenes.WizardScene('cargaGastoCorriente',
     },
     //PASO 1
     async (ctx) => {
-        let opcion = ctx.message.text.trim().match(/\/(\d+)_/)
-        opcion = opcion ? opcion[1] : ctx.message.text.trim()
+        let opcion = obtenerOpcion(ctx)
 
+        if (opcion == '*') {
+            ctx.reply('❌ Proceso detenido.');
+            ctx.scene.leave()
+            return
+        }
 
         switch (opcion) {
             case '1':
                 slcCategorias = '🍎 Selecciona una opción común:\n'
 
-                aGastoComComunes.forEach(({DESCRIPCION, MONTO}, i) => {
-                    slcCategorias += `\n/${i + 1}_${DESCRIPCION} - $${MONTO.toLocaleString('es-CL')}`
+                aGastoComComunes.forEach(({DESCRIPCION, MONTO, ORDEN}, i) => {
+                    slcCategorias += `\n/${ORDEN}_${DESCRIPCION} - $${MONTO.toLocaleString('es-CL')}`
                 });
 
                 ctx.session.t_categoria = 2
@@ -66,8 +94,8 @@ const cargaGastoCorriente = new Scenes.WizardScene('cargaGastoCorriente',
             case '2':
                 slcCategorias = '🚗 Selecciona una opción común:\n'
 
-                aGastoTransComunes.forEach(({DESCRIPCION, MONTO}, i) => {
-                    slcCategorias += `\n/${i + 1}_${DESCRIPCION} - $${MONTO.toLocaleString('es-CL')}`
+                aGastoTransComunes.forEach(({DESCRIPCION, MONTO, ORDEN}, i) => {
+                    slcCategorias += `\n/${ORDEN}_${DESCRIPCION} - $${MONTO.toLocaleString('es-CL')}`
                 });
 
                 ctx.session.t_categoria = 10
@@ -86,35 +114,44 @@ const cargaGastoCorriente = new Scenes.WizardScene('cargaGastoCorriente',
     },
     //PASO 2
     async (ctx) => {
-        let opcion = ctx.message.text.trim().match(/\/(\d+)_/)
-        opcion = opcion ? opcion[1] : ctx.message.text.trim()
+        let opcion = obtenerOpcion(ctx)
+
+        if (opcion == '*') {
+            ctx.reply('❌ Proceso detenido.');
+            ctx.scene.leave()
+            return
+        }
         
         switch (ctx.session.t_categoria) {
             case 2:
-                if (isNaN(opcion) || !aGastoComComunes.hasOwnProperty(opcion - 1)) {
+                if (isNaN(opcion) || !aGastoComComunes.some(g=> g.ORDEN == opcion)) {
 
                     await ctx.reply('❌ Opción no válida.');
                     await ctx.reply(slcCategorias);
                     return; 
                 }
+                const gastoCom = aGastoComComunes.find(g => g.ORDEN == opcion)
         
-                ctx.session.categoria = opcion - 1;
-                ctx.session.tipo_gasto = aGastoComComunes[opcion - 1].ID;
-                ctx.session.tipo_gasto_desc = aGastoComComunes[opcion - 1].DESCRIPCION;
-                ctx.session.monto = aGastoComComunes[opcion - 1].MONTO;
+                ctx.session.categoria = opcion;
+                ctx.session.tipo_gasto = gastoCom.ID;
+                ctx.session.tipo_gasto_desc = gastoCom.DESCRIPCION;
+                ctx.session.monto = gastoCom.MONTO;
                 break;
             case 10:
-                if (isNaN(opcion) || !aGastoTransComunes.hasOwnProperty(opcion - 1)) {
+                if (isNaN(opcion) || !aGastoTransComunes.some(g=> g.ORDEN == opcion)) {
 
                     await ctx.reply('❌ Opción no válida.');
                     await ctx.reply(slcCategorias);
                     return; 
                 }
+
+                const gastoTrans = aGastoTransComunes.find(g => g.ORDEN == opcion)
+
         
-                ctx.session.categoria = opcion - 1;
-                ctx.session.tipo_gasto = aGastoTransComunes[opcion - 1].ID;
-                ctx.session.tipo_gasto_desc = aGastoTransComunes[opcion - 1].DESCRIPCION;
-                ctx.session.monto = aGastoTransComunes[opcion - 1].MONTO;
+                ctx.session.categoria = opcion;
+                ctx.session.tipo_gasto = gastoTrans.ID;
+                ctx.session.tipo_gasto_desc = gastoTrans.DESCRIPCION;
+                ctx.session.monto = gastoTrans.MONTO;
                 break;
         
             default:
@@ -157,8 +194,13 @@ const cargaGastoCorriente = new Scenes.WizardScene('cargaGastoCorriente',
     },
     //PASO 4
     async (ctx) => {
-        let opcion = ctx.message.text.trim().match(/\/(\d+)_/)
-        opcion = opcion ? opcion[1] : ctx.message.text.trim()
+        let opcion = obtenerOpcion(ctx)
+
+        if (opcion == '*') {
+            ctx.reply('❌ Proceso detenido.');
+            ctx.scene.leave()
+            return
+        }
 
         switch (opcion) {
             case '1':

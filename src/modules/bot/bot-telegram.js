@@ -28,6 +28,7 @@ export async function iniciarBot(){
     bot.command("gastos", iniciarComando)
     bot.command("corriente", iniciarComando)
     bot.command("hoy", iniciarComando)
+    bot.command("resumen", iniciarComando)
     
     bot.command("help", iniciarComando)
 
