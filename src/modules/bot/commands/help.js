@@ -16,6 +16,7 @@ export function help(ctx){
     comandos.push({ prefijo: '/azar [5|6|64]', descripcion: 'Obtiene un número al azar entre 1 y [5|6|64] (5 por defecto)'})
     comandos.push({ prefijo: '/gastos', descripcion: 'Ingresar gastos generales'})
     comandos.push({ prefijo: '/corriente', descripcion: 'Ingresar gastos corriente'})
+    comandos.push({ prefijo: '/hoy', descripcion: 'Tareas de hoy en Todoist'})
     comandos.push({ prefijo: '/help', descripcion: 'Lista los comandos con su descripción'})
 
     let mensaje = '🤖 Listado de comandos:\n\n'

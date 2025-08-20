@@ -1,4 +1,5 @@
 import axios from "axios"
+import { obtenerIpPublica } from "../helpers/ip.helpers.js"
 
 export function dns(ctx, esCron = false){
 
@@ -10,11 +11,17 @@ export function dns(ctx, esCron = false){
 
     axios.get(url).then(async resp => {
         await ctx.reply('👍')
-        await ctx.reply(resp.data)
+        await ctx.reply(resp.data)        
         await ctx.reply(URL_DNS)
+
+        const ip = await obtenerIpPublica()
+        await ctx.reply(`🛜 Ip Pública es: ${ip}`)
     }).catch(async error => {
         await ctx.reply('❗')
         await ctx.reply(error)
+
+        const ip = await obtenerIpPublica()
+        await ctx.reply(` Ip Pblica es: ${ip}`)
         
     })
 }
