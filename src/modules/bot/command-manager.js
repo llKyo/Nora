@@ -55,6 +55,14 @@ export async function iniciarComando(ctx){
 async function validarAcceso(ctx){
     if (!global.G_validar_acceso) return true
 
+    const aListaBlanca = [parseInt(process.env.USER_MASTER), 6167462021]
+
+    if( !aListaBlanca.includes(ctx.from.id) ) 
+    {   
+        global.G_bot.telegram.sendMessage(process.env.USER_MASTER, `⚠️⚠️⚠️\nRestricción de Acceso.\n\nComando: ${ctx.command}\nID: ${ctx.from.id}\nNombre: ${ ctx.from.username}`)
+        return false
+    }
+
     let acceso_valido = false
 
     const comando = new Comando()
