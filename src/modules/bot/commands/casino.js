@@ -49,10 +49,7 @@ function generarRespuesta(minutaCasino, esNuevo){
 
     if (esNuevo) msjRespuesta += "[Nuevo] "
 
-    msjRespuesta += `${minutaCasino.periodo}\n\n`
-    msjRespuesta += `🌱 Anexos Vegane de 10 a 11 Hrs:`
-    msjRespuesta += `\n    ☎️ 3084`;
-    msjRespuesta += `\n    ☎️ 3085`;
+    msjRespuesta += `${minutaCasino.periodo}`
     msjRespuesta += `\n\n${minutaCasino.url}`;
 
     return msjRespuesta
@@ -79,5 +76,8 @@ export async function casino (ctx, esCron = false){
         } else if(!esCron) {
             ctx.reply(msjRespuesta)
         }
+    } else if(!esCron) {
+        await ctx.reply("No se encontró nada.")
+        await ctx.reply("☹")
     }
 }
