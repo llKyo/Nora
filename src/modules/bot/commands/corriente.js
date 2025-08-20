@@ -10,8 +10,6 @@ export function corriente(ctx) {
 
 export function cargarGastoTransporteDB(ctx){
 
-    console.log();
-
     const gasto_corriente = new Gasto()
     gasto_corriente.t_categoria = ctx.session.t_categoria
     gasto_corriente.monto = ctx.session.monto

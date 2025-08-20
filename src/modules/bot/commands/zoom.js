@@ -46,7 +46,7 @@ function buscarIpsPublicadas(ctx) {
 
                 resolve(ipsEncontradas)
             })
-            .catch(err => ctx.reply("⚠️\nHa ocurrido un error al buscar las IPs publicadas por ZOOM."))
+            .catch(err => ctx.reply("⚠️\nHa ocurrido un error al buscar las IPs publicadas por ZOOM.\n\n" + err))
     })
 }
 
