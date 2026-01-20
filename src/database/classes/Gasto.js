@@ -59,4 +59,12 @@ export class Gasto {
         return consultarDatabase(query,2)
 
     }
+
+    consultarAdeudados() {
+        let query = `SELECT * FROM GASTO g WHERE TRIM(ADEUDADO) NOT IN ('', '*', 'ZZ') `
+        query += ` AND ADEUDADO IS NOT NULL AND FECHA <= LAST_DAY(CURDATE())`
+        query += ` ORDER BY ADEUDADO ASC`
+
+        return consultarDatabase(query,2)
+    }
 }
