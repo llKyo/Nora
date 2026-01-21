@@ -48,14 +48,14 @@ const deudaScene = new Scenes.WizardScene('deudaScene',
             switch (opcion) {
                 case '1':
                     if (! await enviarListadoAdeudadoIndividual(1, ctx.session.id_adeudado)) {
-                        await ctx.reply(`💠 - No se han encontrado dedudas.`)
+                        await ctx.reply(`💠 - No se han encontrado deudas.`)
                         await ctx.reply(`🥳`)
                     }
                     ctx.scene.leave()
                     break;
                 case '2':
                     if (! await enviarListadoAdeudadoIndividual(2, ctx.session.id_adeudado) ) {
-                        await ctx.reply(`💠 - No se han encontrado dedudas.`)
+                        await ctx.reply(`💠 - No se han encontrado deudas.`)
                         await ctx.reply(`🥳`)
                     }
                     ctx.scene.leave()

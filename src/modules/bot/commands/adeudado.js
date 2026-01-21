@@ -193,15 +193,25 @@ export async function adeudado(ctx, help) {
         return 
     } 
 
-    if (deudor[0].IS_MASTER) {
-        if (ctx.payload == 'completo' || ctx.payload == '1') {
+    let buscar_caso     = false
+    let nomina_completa = false
+
+    if (ctx.payload == 'completo' || ctx.payload == '1') 
+    {
+        nomina_completa = true
+    } else if (ctx.payload != "") {
+        buscar_caso = true
+    }
+
+    if (deudor[0].IS_MASTER && !buscar_caso) {
+        if (nomina_completa) {
             if (! await enviarListadoAdeudadosCompleto(2)) {
-                await ctx.reply(`💠 - No se han encontrado dedudas.`)
+                await ctx.reply(`💠 - No se han encontrado deudas.`)
                 await ctx.reply(`🥳`)
             }
         } else {
             if (! await enviarListadoAdeudadosCompleto(1)) {
-                await ctx.reply(`💠 - No se han encontrado dedudas.`)
+                await ctx.reply(`💠 - No se han encontrado deudas.`)
                 await ctx.reply(`🥳`)
             }
         }
@@ -209,8 +219,11 @@ export async function adeudado(ctx, help) {
         return
     }
 
-
-    ctx.session.id_adeudado = deudor[0].OWES
+    if (deudor[0].IS_MASTER) {
+        ctx.session.id_adeudado = ctx.payload
+    } else {
+        ctx.session.id_adeudado = deudor[0].OWES
+    }
 
     ctx.session = { __scenes: ctx.session.__scenes || {} };
     
