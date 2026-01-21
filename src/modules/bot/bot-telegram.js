@@ -4,12 +4,13 @@ import { cargarCrons } from "./cron-manager.js";
 import cargaGastosScene from "./scenes/carga-gastos.scene.js";
 import testScene from "./scenes/test.scene.js";
 import cargaGastoCorriente from "./scenes/carga-g-corriente.scene.js";
+import deudaScene from "./scenes/deuda.scene.js";
 
 export async function iniciarBot(){
 
     const bot = new Telegraf(process.env.BOT_TOKEN)
 
-    const stage = new Scenes.Stage([cargaGastosScene, testScene, cargaGastoCorriente]);
+    const stage = new Scenes.Stage([cargaGastosScene, testScene, cargaGastoCorriente, deudaScene]);
 
     bot.use(session()); // Activar soporte de sesión
     bot.use(stage.middleware()); // Activar soporte de escenas
