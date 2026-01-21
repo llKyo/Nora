@@ -12,7 +12,7 @@ export class Usuario {
     }
 
     consultar() {
-        const query =  `SELECT ID, NAME, USUERNAME, IS_BOT, USER_AT FROM USUARIO WHERE ID = ${this.id};`;
+        const query =  `SELECT ID, NAME, USERNAME, OWES, IS_BOT, ENABLED, IS_MASTER, USER_AT FROM USUARIO WHERE ID = ${this.id};`;
 
         return consultarDatabase(query)
     }
@@ -58,5 +58,11 @@ export class Usuario {
                 reject(err)
             });
         })
+    }
+
+    obtenerHabilitados(){
+        let query = `SELECT * FROM USUARIO u WHERE u.ENABLED = 1`
+
+        return consultarDatabase(query)
     }
 }

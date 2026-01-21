@@ -55,7 +55,10 @@ export async function iniciarComando(ctx){
 async function validarAcceso(ctx){
     if (!global.G_validar_acceso) return true
 
-    const aListaBlanca = [parseInt(process.env.USER_MASTER), 6167462021]
+    const usuario = new Usuario()
+    const habilitados = await usuario.obtenerHabilitados()
+
+    const aListaBlanca = habilitados.map(habilitado => habilitado.ID)
 
     if( !aListaBlanca.includes(ctx.from.id) ) 
     {   
